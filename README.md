@@ -13,3 +13,4 @@
 
 Requires [crazyflie-lib-python](https://github.com/bitcraze/crazyflie-lib-python) and [libmotioncapture](https://github.com/IMRCLab/libmotioncapture). Instructions for installing each package can be found on their respective github pages in the readme.
 
+Our shared folder in Google Drive can be found [here](https://drive.google.com/drive/u/0/folders/1BkDMDv6y58tHEz6p9y0mAqqVNIxwarCQ). (Requires a UMN google account)

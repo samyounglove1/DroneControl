@@ -203,21 +203,20 @@ class DroneController:
             RunTime = time.time() - self.ZeroTime
 
             # Set goal positions as a function of time
-            if RunTime < 10:
-                # Initial takeoff phase
+            if RunTime < 5:
                 x_goal = 0
                 y_goal = 0
-                z_goal = 1.5
-            elif RunTime < 30:
-                # Infinity shape trajectory
-                x_goal = np.sin(0.2 * np.pi * RunTime)  # Adjust amplitude and period as needed
-                y_goal = np.sin(0.4 * np.pi * RunTime)  # Adjust amplitude, period, and scale as needed
-                z_goal = 1.5
+                z_goal = 2
+
+            elif RunTime < 25 and RunTime >= 5:
+                x_goal = 0
+                y_goal = np.sin(2*np.pi*0.1 * (RunTime + 5)) * 0.5
+                z_goal = np.cos(2*np.pi*0.1 * (RunTime + 5)) * 0.5 + 1.5
+                
             else:
-                # Landing phase
                 x_goal = 0
                 y_goal = 0
-                z_goal = 1.5 - 0.2*(RunTime - 30)
+                z_goal = 2 - 0.4*(RunTime - 25)
                 if(z_goal < 0):
                     z_goal = 0
                     self.control = False
