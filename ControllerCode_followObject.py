@@ -39,7 +39,6 @@ class DroneController:
 
     def __init__(self, link_uri):
         """ Initialize and run the example with the specified link_uri """
-        self.ZeroTime = time.time()
         self._mc = motioncapture.connect(mocap_system_type, {'hostname': host_name})
         self.prev_time = 0
         self.control = True
@@ -181,7 +180,8 @@ class DroneController:
     def _control_loop(self):
         """ The main loop of the controller code """
         # These goals are in standard unts for mocap (should be in meters)
-        RunTime = time.time() - self.ZeroTime
+        self.ZeroTime = time.time()
+
 
         # Initial goal states
         x_goal = 0
@@ -204,12 +204,13 @@ class DroneController:
             RunTime = time.time() - self.ZeroTime
 
             # Set goal positions as a function of time
-            if RunTime < 5:
+            if RunTime < 3:
                 x_goal = 0
                 y_goal = 0
-                z_goal = 1.5
+                z_goal = 1.3
             else:
-                x_goal, y_goal, _, _, _ = self._get_position_data(ground_object_name)
+                x_goal, y_goal, z_box, _, _ = self._get_position_data(ground_object_name)
+                z_goal = z_box + 1.3
 
             X_new, Y_new, Z_new, Yaw, new_time = self._get_position_data(drone_object_name)
             
